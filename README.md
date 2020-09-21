@@ -103,3 +103,29 @@ In order to complete this assignment, you must do the following:
 ### Grading
 
 This assignment will be graded via peer assessment.
+
+Solution
+
+makeCacheMatrix<-function(x=numeric()){
+  m<-NULL
+  set<-function(y){
+    x<<-matrix(y)
+    m<<-NULL
+  }
+  get<-function()x
+  setinv<-function(inv) m<<-inv   #Install and load the Matlib package containing the inv() (inverse function) function on R. 
+  getinv<-function()m
+  list(set=set, get=get, setinv=setinv, getinv=getinv)
+}
+
+cacheSolve <- function(x, ...) {
+  m <- x$getinv()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data <- x$get()
+  m <- inv(data, ...)
+  x$setinv(m)
+  m
+}
